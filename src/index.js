@@ -4,8 +4,6 @@ import { render } from 'react-dom';
 import App from './components/App';
 
 render(
-    <div>
-        <App/>
-    </div>,
+    <App/>,
     document.querySelector('#root')
 );
