@@ -17,7 +17,7 @@ class ReactPureComponent extends React.PureComponent {
     }
 }
 
-function getFunctionalComponent() {
+function FunctionalComponent() {
     return <h4>Functional Component</h4>;
 }
 
@@ -32,9 +32,7 @@ export default class App extends React.Component {
                 }
                 <ReactComponent/>
                 <ReactPureComponent/>
-                {
-                    getFunctionalComponent()
-                }
+                <FunctionalComponent/>
             </div>
         );
     }
