@@ -1,0 +1,77 @@
+.select {
+    position: relative;
+
+    display: inline-block;
+
+    width: 130px;
+    padding: 0 40px 0 20px;
+
+    cursor: pointer;
+
+    color: var(--c7);
+    background: var(--c3);
+}
+
+.select ul {
+    position: absolute;
+    z-index: 2;
+    top: 100%;
+    left: -2px;
+
+    overflow: hidden;
+
+    width: 100%;
+    max-height: 0;
+    margin: 0;
+    padding: 0;
+
+    transition: .5s cubic-bezier(0,1,0,1);
+
+    border: 2px solid var(--c2);
+    border-top: none;
+    background: var(--c3);
+}
+
+.select.open ul {
+    max-height: 1300%;
+
+    transition-timing-function: cubic-bezier(1,0,1,0);
+
+    border-color: var(--c1);
+}
+
+.select ul li {
+    padding: 0 40px 0 20px;
+
+    border-top: 2px solid var(--c2);
+}
+
+.select ul li:hover {
+    background: var(--c2);
+}
+
+.select ul li.selected {
+    color: var(--c1);
+}
+
+.select:before {
+    position: absolute;
+    top: calc(50% - 4px);
+    right: 10px;
+
+    width: 0;
+    height: 0;
+
+    content: '';
+
+    border-top: 8px solid var(--c1);
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+}
+
+.select.open:before {
+    border-top: 0;
+    border-right: 5px solid transparent;
+    border-bottom: 8px solid var(--c1);
+    border-left: 5px solid transparent;
+}

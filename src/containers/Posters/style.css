@@ -1,0 +1,32 @@
+.posters {
+    position: relative;    
+}
+
+.posters::before {
+    position: absolute;
+    z-index: -101;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    content: '';
+
+    background: #000;
+}
+
+.posters::after {
+    position: absolute;
+    z-index: -100;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    content: '';
+
+    opacity: .5;
+    background-image: url(./../../../images/top123opt.jpg);
+
+    filter: blur(2.5px);
+}

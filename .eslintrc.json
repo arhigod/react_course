@@ -18,10 +18,10 @@
         "react"
     ],
     "rules": {
-        "indent": ["error", 4],
-        "linebreak-style": ["error", "unix"],
-        "quotes": ["error", "single"],
-        "semi": ["error", "always"]
+        "indent": [2, 4],
+        "linebreak-style": [1, "windows"],
+        "quotes": [2, "single"],
+        "semi": [2, "always"]
     },
     "globals": {
         "module": true,

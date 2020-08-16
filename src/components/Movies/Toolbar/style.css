@@ -1,0 +1,7 @@
+.movies_toolbar {
+    display: flex;
+
+    border-bottom: 2px solid var(--c2);
+
+    justify-content: space-between;
+}
