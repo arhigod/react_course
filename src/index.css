@@ -9,6 +9,7 @@
     --c8: #888;
     --c9: #f33546;
     --c10: #111;
+    --c11: #2e2e2e;
 }
 
 ::-webkit-scrollbar {
@@ -28,6 +29,8 @@ body {
     margin: 0;
 
     cursor: default;
+
+    background: #000;
 }
 
 button:focus {

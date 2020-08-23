@@ -1,0 +1,74 @@
+.modal_background {
+    position: fixed;
+    z-index: 10000;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    background: rgba(35, 35, 35, .75);
+}
+
+.modal_container {
+    position: relative;
+    top: 50%;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 700px;
+    max-width: 90%;
+    max-height: calc(100% - 40px);
+    margin: 0 auto;
+
+    transform: translateY(-50%);
+
+    border-radius: 5px;
+    background: var(--c3);
+    box-shadow: 0 0 30px 20px rgba(0, 0, 0, .5);
+}
+
+.modal_button_close {
+    margin: 10px 10px 0 0;
+
+    align-self: flex-end;
+    flex-shrink: 0;
+}
+
+.modal_title {
+    font: 200 40px Montserrat;
+
+    margin: 0 0 25px 0;
+    padding: 0 60px;
+
+    text-transform: uppercase;
+
+    color: var(--c5);
+
+    flex-shrink: 0;
+}
+
+.modal_content {
+    overflow-y: overlay;
+
+    padding: 0 60px;
+}
+
+.modal_footer {
+    display: flex;
+
+    height: 100px;
+    padding: 15px 60px;
+
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 0;
+}
+
+.modal_footer .button {
+    width: 180px;
+}
+
+.modal_footer .button:not(:first-child) {
+    margin-left: 20px;
+}

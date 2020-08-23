@@ -1,0 +1,17 @@
+.input {
+    font: 22px Montserrat;
+
+    position: relative;
+
+    padding: 16px 20px;
+
+    color: var(--c6);
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    background: var(--c11);
+}
+
+.input::placeholder {
+    color: var(--c4);
+}

@@ -1,0 +1,38 @@
+.movies_toolbar_sorter {
+    font: 500 16px/60px Montserrat;
+
+    text-transform: uppercase;
+
+    color: var(--c8);
+}
+
+.movies_toolbar_sorter .select {
+    font: 500 16px/60px Montserrat;
+
+    padding-right: 40px;
+
+    color: var(--c7);
+    background: var(--c3);
+}
+
+.movies_toolbar_sorter .select:before {
+    right: 10px;
+
+    border-top-width: 8px;
+    border-right-width: 5px;
+    border-left-width: 5px ;
+}
+
+.movies_toolbar_sorter .select.open:before {
+    border-right-width: 5px;
+    border-bottom-width: 8px;
+    border-left-width: 5px;
+}
+
+.movies_toolbar_sorter .select span {
+    display: initial;
+}
+
+.movies_toolbar_sorter .select:not(.open) ul {
+    border-color: var(--c2);
+}
