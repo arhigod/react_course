@@ -1,0 +1,46 @@
+.movieItem {
+    width: 340px;
+    padding-bottom: 5px;
+
+    cursor: pointer;
+    transition: .5s;
+
+    color: var(--c8);
+}
+
+.movieItem:hover {
+    transform: scale(1.05);
+}
+
+.movieItem_poster {
+    width: 340px;
+    height: 460px;
+
+    box-shadow: 4px 4px 10px 1px rgba(0,0,0,.5);
+}
+
+.movieItem_poster_description_mainBlock {
+    display: flex;
+
+    margin-top: 10px;
+
+    justify-content: space-between;
+}
+
+.movieItem_poster_description_title {
+    font: 500 18px Montserrat;
+}
+
+.movieItem_poster_description_date {
+    font: 400 15px/18px Montserrat;
+
+    height: 18px;
+    padding: 4px 15px;
+
+    border: 1px solid var(--c8);
+    border-radius: 5px;
+}
+
+.movieItem_poster_description_tagline {
+    font: 400 14px Montserrat;
+}

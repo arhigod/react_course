@@ -20,6 +20,11 @@
     "url": "https://github.com/arhigod/react_cource/issues"
   },
   "homepage": "https://github.com/arhigod/react_cource#readme",
+  "dependencies": {
+    "prop-types": "^15.7.2",
+    "styled-components": "^5.1.1",
+    "styled-icons": "^10.16.0"
+  },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
     "@babel/core": "^7.10.5",
@@ -30,6 +35,7 @@
     "css-loader": "^3.6.0",
     "eslint": "^7.5.0",
     "eslint-plugin-react": "^7.20.3",
+    "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
     "jest": "^26.1.0",
     "react": "^16.13.1",

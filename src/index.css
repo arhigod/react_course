@@ -1,0 +1,35 @@
+:root {
+    --c1: #f65261;
+    --c2: #424242;
+    --c3: #232323;
+    --c4: #555;
+    --c5: #fff;
+    --c6: #aaa;
+    --c7: #ddd;
+    --c8: #888;
+    --c9: #f33546;
+    --c10: #111;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--c1);
+}
+
+::-webkit-scrollbar-track-piece {
+    background: var(--c2);
+}
+
+body {
+    margin: 0;
+
+    cursor: default;
+}
+
+button:focus {
+    outline: none;
+}
