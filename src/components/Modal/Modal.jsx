@@ -5,26 +5,23 @@ import { Close } from '@styled-icons/ionicons-outline/Close';
 
 import './Modal.css';
 
-const Modal = ({ title, children, rejectText, acceptText, showReject, onCloseClick, onAcceptClick, onRejectClick }) => {
-    const closeIcon = <Close size='40' />;
+const closeIcon = <Close size='40' />;
 
-    return (
-        <div className='modal_background'>
-            <div className='modal_container'>
-                <Button className='modal_button_close' icon={closeIcon} type='transparent' onClick={onCloseClick} />
-                <p className='modal_title'>{title}</p>
-                <div className='modal_content'>
-                    {children}
-                </div>
-                <div className='modal_footer'>
-                    {showReject && <Button text={rejectText} type='reject' onCLick={onRejectClick} />}
-                    <Button text={acceptText} onCLick={onAcceptClick} />
-                </div>
+const Modal = ({ title, children, rejectText, acceptText, showReject, onCloseClick, onAcceptClick, onRejectClick }) => (
+    <div className='modal_background'>
+        <div className='modal_container'>
+            <Button className='modal_button_close' icon={closeIcon} type='transparent' onClick={onCloseClick} />
+            <p className='modal_title'>{title}</p>
+            <div className='modal_content'>
+                {children}
+            </div>
+            <div className='modal_footer'>
+                {showReject && <Button text={rejectText} type='reject' onClick={onRejectClick} />}
+                <Button text={acceptText} onClick={onAcceptClick} />
             </div>
         </div>
-    );
-};
-
+    </div>
+);
 
 Modal.propTypes = {
     className: PropTypes.string,

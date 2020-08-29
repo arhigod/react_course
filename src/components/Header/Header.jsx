@@ -6,19 +6,19 @@ import ErrorBoundary from '../ErrorBoundary';
 
 import './Header.css';
 
-const Header = ({ onAddMoviePressed }) => (
+const Header = ({ onAddMovieClick }) => (
     <ErrorBoundary>
         <div className='header'>
-            <SubHeader onAddMoviePressed={onAddMoviePressed} />
+            <SubHeader onAddMovieClick={onAddMovieClick} />
             <Search className='header_search' />
         </div>
     </ErrorBoundary>
 );
 
 Header.propTypes = {
-    onAddMoviePressed: PropTypes.func
+    onAddMovieClick: PropTypes.func
 };
 Header.defaultProps = {
-    onAddMoviePressed: () => { }
+    onAddMovieClick: () => { }
 };
 export default Header;

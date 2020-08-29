@@ -1,5 +1,4 @@
 .blur {
-    background-color: var(--c3);
     filter: blur(5px);
 }
 

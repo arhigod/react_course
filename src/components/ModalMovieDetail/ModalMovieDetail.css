@@ -3,6 +3,15 @@
     flex-direction: column;
 }
 
+.field.notDisplayed {
+    display: none;
+}
+
+.field.notEditable span {
+    font: 22px Montserrat;
+    color: var(--c6);
+}
+
 .field:not(:last-child) {
     margin-bottom: 25px;
 }

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Movies from '../../components/Movies';
 import Logo from '../../components/Logo';
 import Wrapper from '../../components/Wrapper';
 import WrapperPosters from '../../components/WrapperPosters';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
+import ModalMovieDelete from '../../components/ModalMovieDelete';
 import ModalMovieDetail from '../../components/ModalMovieDetail';
 import moviesMock from '../../../mockdata/movies.json';
 
@@ -12,8 +13,8 @@ import '../../../fonts/fonts.css';
 import './App.css';
 
 export default function App() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [movies, setMovies] = useState([]);
+    const [currentMovie, setCurrentMovie] = useState(null);
     const [openedModal, setOpenedModal] = useState('');
 
     useEffect(() => {
@@ -29,27 +30,50 @@ export default function App() {
             });
     };
 
-    const onAddMoviePressed = () => {
-        setIsModalOpen(true);
+    const onAddMovieClick = useCallback(() => {
         setOpenedModal('AddMovie');
-    };
+    }, []);
 
-    const onCloseModalPressed = () => {
-        setIsModalOpen(false);
+    const onSubmitModalAddMovieClick = useCallback((movie) => {
         setOpenedModal('');
-    };
+        alert(JSON.stringify(movie));
+    }, []);
+
+    const onMovieEditClick = useCallback((movie) => {
+        setCurrentMovie(movie);
+        setOpenedModal('EditMovie');
+    }, []);
+
+    const onSaveModalEditMovieClick = useCallback((movie) => {
+        setOpenedModal('');
+        alert(JSON.stringify(movie));
+    }, []);
+
+    const onMovieDeleteClick = useCallback((movie) => {
+        setCurrentMovie(movie);
+        setOpenedModal('DeleteMovie');
+    }, []);
+
+    const onConfirmMovieDeleteClick = useCallback(() => {
+        setOpenedModal('');
+        alert(currentMovie.title + ' is deleted');
+    }, [currentMovie]);
+
+    const onCloseModalPressed = useCallback(() => {
+        setOpenedModal('');
+    }, []);
 
     return (
         <>
-            <div className={isModalOpen ? 'blur' : ''}>
+            <div className={openedModal ? 'blur' : ''}>
                 <WrapperPosters>
                     <Wrapper>
-                        <Header onAddMoviePressed={onAddMoviePressed} />
+                        <Header onAddMovieClick={onAddMovieClick} />
                     </Wrapper>
                 </WrapperPosters>
                 <main>
                     <Wrapper>
-                        <Movies movies={movies} />
+                        <Movies movies={movies} onMovieEditClick={onMovieEditClick} onMovieDeleteClick={onMovieDeleteClick} />
                     </Wrapper>
                 </main>
                 <Footer>
@@ -58,9 +82,10 @@ export default function App() {
                     </Wrapper>
                 </Footer>
             </div>
-            {
-                openedModal === 'AddMovie' && <ModalMovieDetail onCloseClick={onCloseModalPressed} />
-            }
+            {openedModal === 'AddMovie' && <ModalMovieDetail onCloseClick={onCloseModalPressed} onSubmitClick={onSubmitModalAddMovieClick} />}
+            {openedModal === 'EditMovie' &&
+                <ModalMovieDetail onCloseClick={onCloseModalPressed} onSubmitClick={onSaveModalEditMovieClick} movie={currentMovie} />}
+            {openedModal === 'DeleteMovie' && <ModalMovieDelete onCloseClick={onCloseModalPressed} onSubmitClick={onConfirmMovieDeleteClick} />}
         </>
     );
 }

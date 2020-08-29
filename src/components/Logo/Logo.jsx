@@ -5,7 +5,7 @@ import './Logo.css';
 export default function Logo() {
     return (
         <div className='logo'>
-            <b>netflix</b>roulette
+            <span>netflix</span>roulette
         </div>
     );
 }

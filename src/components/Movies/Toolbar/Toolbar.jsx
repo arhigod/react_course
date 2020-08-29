@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Filter from './Filter';
-import Sorter from './Sorter';
+import Filter from '../Filter';
+import Sorter from '../Sorter';
 
 import './Toolbar.css';
 

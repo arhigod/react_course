@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 
 import './Select.css';
 
-const Select = ({ placeholder, multiselect, items }) => {
+const Select = ({ placeholder, multiselect, items, value, onChange }) => {
     const [selectedItem, setSelectedItem] = useState(!multiselect && items[0] ? items[0] : '');
-    const [selectedItems, setSelectedItems] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
-        return function cleanup() {
+        return function () {
             document.removeEventListener('click', onDocumentPressed);
         };
     }, [onDocumentPressed]);
@@ -21,37 +20,41 @@ const Select = ({ placeholder, multiselect, items }) => {
         }
     }, [multiselect]);
 
-    const onSelectPressed = () => {
+    const onSelectPressed = useCallback(() => {
         if (!isOpen) {
             document.addEventListener('click', onDocumentPressed);
             setIsOpen(true);
         }
-    };
+    }, [isOpen, onDocumentPressed]);
 
-    const onItemClick = useCallback((e) => {
-        let item = e.currentTarget.getAttribute('data-item');
+    const onItemClick = useCallback(({ currentTarget }) => {
+        let item = currentTarget.getAttribute('data-item');
 
         if (multiselect) {
-            if (selectedItems.includes(item)) {
-                selectedItems.splice(selectedItems.indexOf(item), 1);
+            let newValue = [...value];
+            if (newValue.includes(item)) {
+                newValue.splice(newValue.indexOf(item), 1);
             } else {
-                selectedItems.push(item);
+                newValue.push(item);
             }
-            setSelectedItems([...selectedItems.sort()]);
+            newValue.sort();
+
+            onChange(newValue);
         } else {
             setSelectedItem(item);
+            onChange([item]);
         }
-    }, [multiselect, selectedItems]);
+    }, [multiselect, onChange, value]);
 
     return (
         <div className={'select' + (isOpen ? ' open' : '')} onClick={onSelectPressed}>
-            <span className={selectedItem || selectedItems.length ? '' : 'placeholder'}>
-                {selectedItem || selectedItems.join(', ') || placeholder}
+            <span className={selectedItem || value.length ? '' : 'placeholder'}>
+                {selectedItem || value.join(', ') || placeholder}
             </span>
             <ul>
                 {
                     items.map((item) => (
-                        <li className={selectedItem === item || selectedItems.includes(item) ? 'selected' : ''} onClick={onItemClick} 
+                        <li className={selectedItem === item || value.includes(item) ? 'selected' : ''} onClick={onItemClick}
                             key={item} data-item={item}>
                             {item}
                         </li>
@@ -64,12 +67,16 @@ const Select = ({ placeholder, multiselect, items }) => {
 
 Select.propTypes = {
     items: PropTypes.arrayOf(PropTypes.string),
+    value: PropTypes.arrayOf(PropTypes.string),
     multiselect: PropTypes.bool,
-    placeholder: PropTypes.string
+    placeholder: PropTypes.string,
+    onChange: PropTypes.func
 };
 Select.defaultProps = {
     items: [],
+    value: [],
     multiselect: false,
-    placeholder: 'Select an item'
+    placeholder: 'Select an item',
+    onChange: () => { }
 };
 export default Select;

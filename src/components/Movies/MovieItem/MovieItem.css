@@ -1,4 +1,6 @@
 .movieItem {
+    position: relative;
+
     width: 340px;
     padding-bottom: 5px;
 
@@ -6,10 +8,35 @@
     transition: .5s;
 
     color: var(--c8);
+
+    backface-visibility: hidden;
 }
 
 .movieItem:hover {
     transform: scale(1.05);
+}
+
+.movieItem_detailButton,
+.movieItem_movieSettings {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    transition: .5s;
+
+    opacity: 0;
+}
+
+
+.movieItem_detailButton {
+    border: 1.5px solid var(--c1);
+    border-radius: 50%;
+    background-color: rgba(0,0,0,.75);
+}
+
+.movieItem:hover .movieItem_detailButton,
+.movieItem:hover .movieItem_movieSettings {
+    opacity: 1;
 }
 
 .movieItem_poster {
