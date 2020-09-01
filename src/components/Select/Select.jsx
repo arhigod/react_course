@@ -9,23 +9,23 @@ const Select = ({ placeholder, multiselect, items, value, onChange }) => {
 
     useEffect(() => {
         return function () {
-            document.removeEventListener('click', onDocumentPressed);
+            document.removeEventListener('click', onDocumentClick);
         };
-    }, [onDocumentPressed]);
+    }, [onDocumentClick]);
 
-    const onDocumentPressed = useCallback((e) => {
+    const onDocumentClick = useCallback((e) => {
         if (!(multiselect && e.target.closest('.select li'))) {
             setIsOpen(false);
-            document.removeEventListener('click', onDocumentPressed);
+            document.removeEventListener('click', onDocumentClick);
         }
     }, [multiselect]);
 
-    const onSelectPressed = useCallback(() => {
+    const onSelectClick = useCallback(() => {
         if (!isOpen) {
-            document.addEventListener('click', onDocumentPressed);
+            document.addEventListener('click', onDocumentClick);
             setIsOpen(true);
         }
-    }, [isOpen, onDocumentPressed]);
+    }, [isOpen, onDocumentClick]);
 
     const onItemClick = useCallback(({ currentTarget }) => {
         let item = currentTarget.getAttribute('data-item');
@@ -47,7 +47,7 @@ const Select = ({ placeholder, multiselect, items, value, onChange }) => {
     }, [multiselect, onChange, value]);
 
     return (
-        <div className={'select' + (isOpen ? ' open' : '')} onClick={onSelectPressed}>
+        <div className={'select' + (isOpen ? ' open' : '')} onClick={onSelectClick}>
             <span className={selectedItem || value.length ? '' : 'placeholder'}>
                 {selectedItem || value.join(', ') || placeholder}
             </span>

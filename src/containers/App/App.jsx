@@ -59,7 +59,7 @@ export default function App() {
         alert(currentMovie.title + ' is deleted');
     }, [currentMovie]);
 
-    const onCloseModalPressed = useCallback(() => {
+    const onCloseModalClick = useCallback(() => {
         setOpenedModal('');
     }, []);
 
@@ -82,10 +82,10 @@ export default function App() {
                     </Wrapper>
                 </Footer>
             </div>
-            {openedModal === 'AddMovie' && <ModalMovieDetail onCloseClick={onCloseModalPressed} onSubmitClick={onSubmitModalAddMovieClick} />}
+            {openedModal === 'AddMovie' && <ModalMovieDetail onCloseClick={onCloseModalClick} onSubmitClick={onSubmitModalAddMovieClick} />}
             {openedModal === 'EditMovie' &&
-                <ModalMovieDetail onCloseClick={onCloseModalPressed} onSubmitClick={onSaveModalEditMovieClick} movie={currentMovie} />}
-            {openedModal === 'DeleteMovie' && <ModalMovieDelete onCloseClick={onCloseModalPressed} onSubmitClick={onConfirmMovieDeleteClick} />}
+                <ModalMovieDetail onCloseClick={onCloseModalClick} onSubmitClick={onSaveModalEditMovieClick} movie={currentMovie} />}
+            {openedModal === 'DeleteMovie' && <ModalMovieDelete onCloseClick={onCloseModalClick} onSubmitClick={onConfirmMovieDeleteClick} />}
         </>
     );
 }
