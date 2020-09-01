@@ -25,6 +25,10 @@
     background: var(--c2);
 }
 
+html {
+    overflow: overlay;
+}
+
 body {
     margin: 0;
 

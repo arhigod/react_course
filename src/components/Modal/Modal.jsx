@@ -10,8 +10,10 @@ const closeIcon = <Close size='40' />;
 const Modal = ({ title, children, rejectText, acceptText, showReject, onCloseClick, onAcceptClick, onRejectClick }) => (
     <div className='modal_background'>
         <div className='modal_container'>
-            <Button className='modal_button_close' icon={closeIcon} type='transparent' onClick={onCloseClick} />
-            <p className='modal_title'>{title}</p>
+            <div className='modal_header'>
+                <Button className='modal_button_close' icon={closeIcon} type='transparent' onClick={onCloseClick} />
+                <p className='modal_title'>{title}</p>
+            </div>
             <div className='modal_content'>
                 {children}
             </div>

@@ -28,24 +28,27 @@
     box-shadow: 0 0 30px 20px rgba(0, 0, 0, .5);
 }
 
+.modal_header {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 60px 25px;
+    flex-shrink: 0;
+}
+
 .modal_button_close {
-    margin: 10px 10px 0 0;
+    margin-right: -50px;
 
     align-self: flex-end;
-    flex-shrink: 0;
 }
 
 .modal_title {
     font: 200 40px Montserrat;
 
-    margin: 0 0 25px 0;
-    padding: 0 60px;
+    margin: 0;
 
     text-transform: uppercase;
 
     color: var(--c5);
-
-    flex-shrink: 0;
 }
 
 .modal_content {
