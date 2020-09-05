@@ -8,7 +8,7 @@ import './MovieItem.css';
 
 const dotsIcon = <DotsVerticalRounded size='45' />;
 
-const MovieItem = ({ className, movie, movie: { poster_path, title, release_date, tagline }, onMovieEditClick, onMovieDeleteClick }) => {
+const MovieItem = ({ className, movie, movie: { poster_path, title, release_date, tagline }, onMovieEditClick, onMovieDeleteClick, onMovieClick }) => {
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
     const onSettingsButtonClick = useCallback(() => {
@@ -29,8 +29,14 @@ const MovieItem = ({ className, movie, movie: { poster_path, title, release_date
         onMovieDeleteClick(movie);
     }, [movie, onMovieDeleteClick]);
 
+    const onMovClick = useCallback((e) => {
+        if (!e.target.closest('.movieItem_movieSettings') && !e.target.closest('.movieItem_detailButton')) {
+            onMovieClick(movie);
+        }
+    }, [movie, onMovieClick]);
+
     return (
-        <div className={`movieItem ${className}`} onMouseLeave={onCloseSettingsClick}>
+        <div className={`movieItem ${className}`} onMouseLeave={onCloseSettingsClick} onClick={onMovClick} >
             {
                 isSettingsOpen ?
                     <MovieSettings className='movieItem_movieSettings' onCloseClick={onCloseSettingsClick} onEditClick={onEditSettingsClick}
@@ -64,9 +70,13 @@ MovieItem.propTypes = {
         runtime: PropTypes.number
     }),
     onMovieEditClick: PropTypes.func,
-    onMovieDeleteClick: PropTypes.func
+    onMovieDeleteClick: PropTypes.func,
+    onMovieClick: PropTypes.func
 };
 MovieItem.defaultProps = {
-    className: ''
+    className: '',
+    onMovieEditClick: () => { },
+    onMovieDeleteClick: () => { },
+    onMovieClick: () => { }
 };
 export default MovieItem;

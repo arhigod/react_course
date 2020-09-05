@@ -6,7 +6,19 @@
     justify-content: space-between;
 }
 
-.subHeader_button {
+.subHeader_button_search {
+    color: var(--c1);
+}
+
+.subHeader_button_search svg {
+    transform: scale(-1, 1);
+}
+
+.subHeader_button_search:hover svg {
+    transform: scale(1);
+}
+
+.subHeader_button_addMovie {
     line-height: 50px;
 
     transition: .5s;
@@ -15,7 +27,7 @@
     background: rgba(85, 85, 85, .75);
 }
 
-.subHeader_button:hover {
+.subHeader_button_addMovie:hover {
     transform: translateY(-3.5px);
 
     box-shadow: 0 7px 7px -5px var(--c9);
