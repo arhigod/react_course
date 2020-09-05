@@ -1,0 +1,22 @@
+.subHeader {
+    display: flex;
+
+    padding-top: 15px;
+
+    justify-content: space-between;
+}
+
+.subHeader_button {
+    line-height: 50px;
+
+    transition: .5s;
+
+    color: var(--c1);
+    background: rgba(85, 85, 85, .75);
+}
+
+.subHeader_button:hover {
+    transform: translateY(-3.5px);
+
+    box-shadow: 0 7px 7px -5px var(--c9);
+}

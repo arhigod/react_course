@@ -1,0 +1,73 @@
+.button {
+    font: 500 21px/60px Montserrat;
+
+    position: relative;
+
+    display: flex;
+
+    padding: 0 20px;
+
+    cursor: pointer;
+    transition: 1s;
+    text-transform: uppercase;
+
+    color: var(--c5);
+    border: none;
+    border-radius: 5px;
+    background-color: var(--c1);
+
+    align-items: center;
+    justify-content: center;
+}
+
+.button svg {
+    transition: transform .5s ease-out;
+}
+
+.button svg + span {
+    margin-left: 5px;
+}
+
+.button.onlyIcon {
+    padding: 0;
+}
+
+.button:hover {
+    filter: brightness(1.25);
+}
+
+.button:hover svg {
+    transform: rotate(180deg);
+}
+
+.button:active {
+    transition: 0s;
+
+    filter: brightness(.75);
+}
+
+.button.transparent {
+    background: transparent;
+}
+
+.button.transparent:hover {
+    color: var(--c1);
+}
+
+.button.reject {
+    color: var(--c1);
+    background: var(--c3);
+}
+
+.button.reject:before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    content: '';
+
+    border: 2px solid var(--c1);
+    border-radius: 5px;
+}

@@ -47,19 +47,15 @@
 }
 
 @font-face {
-    font-family: Jaapokki;
+    font-family: Montserrat;
+    font-weight: 800;
 
-    src: url(./Jaapokki/jaapokki-regular.ttf);
+    src: url(./Montserrat/Montserrat-ExtraBold.ttf);
 }
 
 @font-face {
-    font-family: JaapokkiEnchance;
+    font-family: Montserrat;
+    font-weight: 900;
 
-    src: url(./Jaapokki/jaapokkienchance-regular.ttf);
-}
-
-@font-face {
-    font-family: JaapokkiSubtract;
-
-    src: url(./Jaapokki/jaapokkisubtract-regular.ttf);
+    src: url(./Montserrat/Montserrat-Black.ttf);
 }

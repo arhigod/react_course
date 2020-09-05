@@ -1,0 +1,9 @@
+.logo {
+    font: 20px Montserrat;
+
+    color: var(--c1);
+}
+
+.logo span {
+    font-weight: 800;
+}

@@ -1,0 +1,36 @@
+.movieSettings {
+    width: 180px;
+    padding-bottom: 10px;
+
+    cursor: default;
+
+    background-color: rgba(0,0,0,.85);
+    border-radius: 5px;
+}
+
+.movieSettings_close {
+    margin: 2px 5px 3px auto;
+}
+
+.movieSettings ul {
+    margin: 0;
+    padding: 0;
+
+    list-style-type: none;
+}
+
+.movieSettings ul li {
+    font: 400 15px/35px Montserrat;
+
+    height: 35px;
+    padding: 0 10px 0 30px;
+
+    cursor: pointer;
+
+    color: var(--c6);
+}
+
+.movieSettings ul li:hover {
+    color: var(--c5);
+    background-color: var(--c1);
+}

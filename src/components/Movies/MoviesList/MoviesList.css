@@ -1,0 +1,33 @@
+.moviesList {
+    display: flex;
+
+    margin: 0 -15px;
+
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.moviesList_counter {
+    font: 20px/75px Montserrat;
+
+    width: 100%;
+    margin: 0 15px;
+
+    letter-spacing: 1px;
+
+    color: var(--c7);
+}
+
+.moviesList_counter span {
+    font: 600 22px Montserrat;
+
+    color: var(--c5);
+}
+
+.moviesList_movieItem {
+    margin: 0 15px 20px;
+}
+
+.moviesList .dummyFlexItem {
+    width: 340px;
+}

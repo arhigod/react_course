@@ -1,0 +1,27 @@
+.field {
+    display: flex;
+    flex-direction: column;
+}
+
+.field.notDisplayed {
+    display: none;
+}
+
+.field.notEditable span {
+    font: 22px Montserrat;
+    color: var(--c6);
+}
+
+.field:not(:last-child) {
+    margin-bottom: 25px;
+}
+
+.field label {
+    font: 500 16px Montserrat;
+
+    margin-bottom: 10px;
+
+    text-transform: uppercase;
+
+    color: var(--c1);
+}

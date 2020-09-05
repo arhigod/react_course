@@ -1,0 +1,31 @@
+{
+    "genres": [
+        "Action",
+        "Adventure",
+        "Animation",
+        "Comedy",
+        "Crime",
+        "Documentary",
+        "Drama",
+        "Family",
+        "Fantasy",
+        "Horror",
+        "Music",
+        "Mystery",
+        "Romance",
+        "Science Fiction",
+        "Thriller"
+    ],
+    "filters": [
+        "All",
+        "Documentary",
+        "Comedy",
+        "Horror",
+        "Crime"
+    ],
+    "sorters": [
+        "Release date",
+        "Rate",
+        "Popularity"
+    ]
+}
