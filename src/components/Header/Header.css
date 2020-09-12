@@ -1,16 +1,15 @@
 .header {
     min-height: 400px;
-    position: relative;
 }
 
 .header.darkBg::before {
     z-index: -10;
     top: 0;
-    left: -1000px;
-    right: -1000px;
+    left: 0;
+    right: 0;
     bottom: 0;
     content: '';
-    position: fixed;
+    position: absolute;
     background-color: rgba(0, 0, 0, .7);
 }
 

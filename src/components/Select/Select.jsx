@@ -31,8 +31,9 @@ const Select = ({ placeholder, multiselect, items, value, onChange }) => {
 
         if (multiselect) {
             let newValue = [...value];
+
             if (newValue.includes(item)) {
-                newValue.splice(newValue.indexOf(item), 1);
+                newValue = newValue.filter(x => x !== item);
             } else {
                 newValue.push(item);
             }

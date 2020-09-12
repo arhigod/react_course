@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../../Button';
+import Poster from '../../Poster';
 import MovieSettings from '../MovieSettings';
 import { DotsVerticalRounded } from '@styled-icons/boxicons-regular/DotsVerticalRounded';
 
@@ -43,12 +44,12 @@ const MovieItem = ({ className, movie, movie: { poster_path, title, release_date
                         onDeleteClick={onDeleteSettingsClick} /> :
                     <Button icon={dotsIcon} className='movieItem_detailButton' onClick={onSettingsButtonClick} />
             }
-            <img className='movieItem_poster' src={poster_path} />
-            <div className='movieItem_poster_description_mainBlock'>
-                <span className='movieItem_poster_description_title'>{title}</span>
-                <span className='movieItem_poster_description_date'>{release_date.slice(0, 4)}</span>
+            <Poster className='movieItem_poster' src={poster_path} />
+            <div className='movieItem_description_mainBlock'>
+                <span className='movieItem_description_title'>{title}</span>
+                <span className='movieItem_description_date'>{release_date.slice(0, 4)}</span>
             </div>
-            <span className='movieItem_poster_description_tagline'>{tagline}</span>
+            <span className='movieItem_description_tagline'>{tagline}</span>
         </div>
     );
 };

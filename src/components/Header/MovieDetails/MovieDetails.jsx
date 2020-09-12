@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Poster from '../../Poster';
 
 import './MovieDetails.css';
 
 const MovieDetails = ({ className, movie: { poster_path, title, vote_average, release_date, tagline, runtime, overview } }) => (
     <div className={`movieDetails ${className}`}>
-        <img className='movieDetails_poster' src={poster_path} />
+        <Poster className='movieDetails_poster' src={poster_path} />
         <div className='movieDetails_detailBlock'>
             <div>
                 <h3 className='movieDetails_title'>{title}</h3>

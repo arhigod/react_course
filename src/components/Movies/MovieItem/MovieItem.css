@@ -46,7 +46,7 @@
     box-shadow: 4px 4px 10px 1px rgba(0,0,0,.5);
 }
 
-.movieItem_poster_description_mainBlock {
+.movieItem_description_mainBlock {
     display: flex;
 
     margin-top: 10px;
@@ -54,11 +54,11 @@
     justify-content: space-between;
 }
 
-.movieItem_poster_description_title {
+.movieItem_description_title {
     font: 500 18px Montserrat;
 }
 
-.movieItem_poster_description_date {
+.movieItem_description_date {
     font: 400 15px/18px Montserrat;
 
     height: 18px;
@@ -68,6 +68,6 @@
     border-radius: 5px;
 }
 
-.movieItem_poster_description_tagline {
+.movieItem_description_tagline {
     font: 400 14px Montserrat;
 }
