@@ -1,5 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { editMovie, deleteMovie, setCurrentMovie } from '../../../store/actions';
+import ModalMovieDetail from '../../ModalMovieDetail';
+import ModalMovieDelete from '../../ModalMovieDelete';
 import Button from '../../Button';
 import Poster from '../../Poster';
 import MovieSettings from '../MovieSettings';
@@ -9,8 +13,39 @@ import './MovieItem.css';
 
 const dotsIcon = <DotsVerticalRounded size='45' />;
 
-const MovieItem = ({ className, movie, movie: { poster_path, title, release_date, tagline }, onMovieEditClick, onMovieDeleteClick, onMovieClick }) => {
+const MovieItem = ({ editMovie, deleteMovie, setCurrentMovie, className, movie, movie: { poster_path, title, release_date = '', tagline, genres } }) => {
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+    const [openedModal, setOpenedModal] = useState('');
+
+    const onEditClick = useCallback(() => {
+        setIsSettingsOpen(false);
+        setOpenedModal('edit');
+    }, []);
+
+    const onDeleteClick = useCallback(() => {
+        setIsSettingsOpen(false);
+        setOpenedModal('delete');
+    }, []);
+
+    const onSaveModalEditMovieClick = useCallback((movie) => {
+        editMovie(movie)
+            .then(() => {
+                setOpenedModal('');
+            })
+            .catch(alert);
+    }, [editMovie]);
+
+    const onConfirmMovieDeleteClick = useCallback(() => {
+        deleteMovie(movie)
+            .then(() => {
+                setOpenedModal('');
+            })
+            .catch(alert);
+    }, [deleteMovie, movie]);
+
+    const onCloseModalClick = useCallback(() => {
+        setOpenedModal('');
+    }, []);
 
     const onSettingsButtonClick = useCallback(() => {
         setIsSettingsOpen(true);
@@ -20,64 +55,48 @@ const MovieItem = ({ className, movie, movie: { poster_path, title, release_date
         setIsSettingsOpen(false);
     }, []);
 
-    const onEditSettingsClick = useCallback(() => {
-        setIsSettingsOpen(false);
-        onMovieEditClick(movie);
-    }, [movie, onMovieEditClick]);
-
-    const onDeleteSettingsClick = useCallback(() => {
-        setIsSettingsOpen(false);
-        onMovieDeleteClick(movie);
-    }, [movie, onMovieDeleteClick]);
-
     const onMovClick = useCallback((e) => {
         if (!e.target.closest('.movieItem_movieSettings') && !e.target.closest('.movieItem_detailButton')) {
-            onMovieClick(movie);
+            setCurrentMovie(movie);
         }
-    }, [movie, onMovieClick]);
+    }, [setCurrentMovie, movie]);
 
     return (
-        <div className={`movieItem ${className}`} onMouseLeave={onCloseSettingsClick} onClick={onMovClick} >
-            {
-                isSettingsOpen ?
-                    <MovieSettings className='movieItem_movieSettings' onCloseClick={onCloseSettingsClick} onEditClick={onEditSettingsClick}
-                        onDeleteClick={onDeleteSettingsClick} /> :
-                    <Button icon={dotsIcon} className='movieItem_detailButton' onClick={onSettingsButtonClick} />
-            }
-            <Poster className='movieItem_poster' src={poster_path} />
-            <div className='movieItem_description_mainBlock'>
-                <span className='movieItem_description_title'>{title}</span>
-                <span className='movieItem_description_date'>{release_date.slice(0, 4)}</span>
+        <>
+            <div className={`movieItem ${className}`} onMouseLeave={onCloseSettingsClick} onClick={onMovClick} >
+                {
+                    isSettingsOpen ?
+                        <MovieSettings className='movieItem_movieSettings' onCloseClick={onCloseSettingsClick} onEditClick={onEditClick}
+                            onDeleteClick={onDeleteClick} movie={movie} /> :
+                        <Button icon={dotsIcon} className='movieItem_detailButton' onClick={onSettingsButtonClick} />
+                }
+                <Poster className='movieItem_poster' src={poster_path} />
+                <div className='movieItem_description_mainBlock'>
+                    <span className='movieItem_description_title'>{title}</span>
+                    <span className='movieItem_description_date'>{release_date.slice(0, 4)}</span>
+                </div>
+                <span className='movieItem_description_tagline'>{tagline || genres.slice(0, 3).join(', ')}</span>
             </div>
-            <span className='movieItem_description_tagline'>{tagline}</span>
-        </div>
+            {openedModal === 'edit' && <ModalMovieDetail onCloseClick={onCloseModalClick} onSubmitClick={onSaveModalEditMovieClick} movie={movie} />}
+            {openedModal === 'delete' && <ModalMovieDelete onCloseClick={onCloseModalClick} onSubmitClick={onConfirmMovieDeleteClick} />}
+        </>
     );
 };
 
+const mapDispatchToProps = dispatch => ({
+    setCurrentMovie: (movie) => dispatch(setCurrentMovie(movie)),
+    editMovie: (movie) => dispatch(editMovie(movie)),
+    deleteMovie: (movie) => dispatch(deleteMovie(movie))
+});
+
 MovieItem.propTypes = {
     className: PropTypes.string,
-    movie: PropTypes.shape({
-        id: PropTypes.number,
-        title: PropTypes.string,
-        tagline: PropTypes.string,
-        vote_average: PropTypes.number,
-        vote_count: PropTypes.number,
-        release_date: PropTypes.string,
-        poster_path: PropTypes.string,
-        overview: PropTypes.string,
-        budget: PropTypes.number,
-        revenue: PropTypes.number,
-        genres: PropTypes.arrayOf(PropTypes.string),
-        runtime: PropTypes.number
-    }),
-    onMovieEditClick: PropTypes.func,
-    onMovieDeleteClick: PropTypes.func,
-    onMovieClick: PropTypes.func
+    setCurrentMovie: PropTypes.func,
+    editMovie: PropTypes.func,
+    deleteMovie: PropTypes.func,
+    movie: PropTypes.object
 };
 MovieItem.defaultProps = {
-    className: '',
-    onMovieEditClick: () => { },
-    onMovieDeleteClick: () => { },
-    onMovieClick: () => { }
+    className: ''
 };
-export default MovieItem;
+export default connect(null, mapDispatchToProps)(MovieItem);

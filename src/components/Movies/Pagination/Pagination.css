@@ -1,0 +1,29 @@
+.movies_pagination {
+    display: flex;
+
+    padding: 10px;
+
+    justify-content: center;
+}
+
+.movies_pagination .button {
+    width: 45px;
+    height: 45px;
+    margin: 0 8px;
+    padding: 0;
+}
+
+.movies_pagination .button:nth-child(-n+2),
+.movies_pagination .button:nth-last-child(-n+2) {
+    margin: 0;
+}
+
+.movies_pagination .button.dummy {
+    visibility: hidden;
+
+    transition: none;
+}
+
+.movies_pagination .button:hover svg {
+    transform: none;
+}

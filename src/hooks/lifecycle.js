@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useEffect } from 'react';
 
 const useComponentDidMount = (callback) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -6,13 +6,6 @@ const useComponentDidMount = (callback) => {
 };
 
 const useComponentDidUpdate = (callback, memo) => {
-    const flag = useRef(false);
-
-    if (!flag.current) {
-        flag.current = true;
-        return;
-    }
-
     // eslint-disable-next-line react-hooks/rules-of-hooks, react-hooks/exhaustive-deps
     useEffect(() => { callback(); }, memo);
 };

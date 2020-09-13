@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import './Select.css';
 
 const Select = ({ placeholder, multiselect, items, value, onChange }) => {
-    const [selectedItem, setSelectedItem] = useState(!multiselect && items[0] ? items[0] : '');
     const [isOpen, setIsOpen] = useState(false);
 
     useComponentDidUnmount(() => {
@@ -41,20 +40,19 @@ const Select = ({ placeholder, multiselect, items, value, onChange }) => {
 
             onChange(newValue);
         } else {
-            setSelectedItem(item);
             onChange([item]);
         }
     }, [multiselect, onChange, value]);
 
     return (
         <div className={'select' + (isOpen ? ' open' : '')} onClick={onSelectClick}>
-            <span className={selectedItem || value.length ? '' : 'placeholder'}>
-                {selectedItem || value.join(', ') || placeholder}
+            <span className={value.length ? '' : 'placeholder'}>
+                {value.join(', ') || placeholder}
             </span>
             <ul>
                 {
                     items.map((item) => (
-                        <li className={selectedItem === item || value.includes(item) ? 'selected' : ''} onClick={onItemClick}
+                        <li className={value.includes(item) ? 'selected' : ''} onClick={onItemClick}
                             key={item} data-item={item}>
                             {item}
                         </li>

@@ -1,13 +1,14 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
+require('../../../images/defaultPoster.jpg');
 
 const Poster = ({ className, src }) => {
-    const setDefaulPoster = useCallback((e) => {
+    const setDefaultPoster = useCallback((e) => {
         e.target.src = './images/defaultPoster.jpg';
     }, []);
 
     return (
-        <img className={className} src={src} onError={setDefaulPoster} />
+        <img className={className} src={src} onError={setDefaultPoster} />
     );
 };
 

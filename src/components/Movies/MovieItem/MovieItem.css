@@ -62,6 +62,7 @@
     font: 400 15px/18px Montserrat;
 
     height: 18px;
+    margin-left: 10px;
     padding: 4px 15px;
 
     border: 1px solid var(--c8);

@@ -1,25 +1,25 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
+import { connect } from 'react-redux';
+import { setFilter } from '../../../store/actions';
 import PropTypes from 'prop-types';
 
 import './Filter.css';
 
-const Filter = ({ filters }) => {
-    const [selectedFilter, setSelectedFilter] = useState(filters[0] || '');
-
+const Filter = ({ setFilter, items, filter }) => {
     const onClick = useCallback((e) => {
-        let filter = e.currentTarget.getAttribute('data-filter');
+        let name = e.currentTarget.getAttribute('data-name');
 
-        setSelectedFilter(filter);
-    }, []);
+        setFilter(name);
+    }, [setFilter]);
 
     return (
         <ul className='movies_toolbar_filter'>
             {
-                filters.map((filter) => {
+                items.map((name) => {
                     return (
-                        <li key={filter} data-filter={filter} className={selectedFilter === filter ? 'selected' : ''}
+                        <li key={name} data-name={name} className={filter === name ? 'selected' : ''}
                             onClick={onClick}>
-                            <a>{filter}</a>
+                            <a>{name}</a>
                         </li>
                     );
                 })
@@ -28,10 +28,19 @@ const Filter = ({ filters }) => {
     );
 };
 
+const mapStateToProps = (state) => ({
+    filter: state.filter
+});
+const mapDispatchToProps = dispatch => ({
+    setFilter: (name) => dispatch(setFilter(name))
+});
+
 Filter.propTypes = {
-    filters: PropTypes.arrayOf(PropTypes.string)
+    setFilter: PropTypes.func,
+    filter: PropTypes.string,
+    items: PropTypes.arrayOf(PropTypes.string)
 };
 Filter.defaultProps = {
-    filters: []
+    items: []
 };
-export default Filter;
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);

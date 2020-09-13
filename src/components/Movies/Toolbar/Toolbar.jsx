@@ -7,14 +7,14 @@ import './Toolbar.css';
 
 const Toolbar = ({ filters, sorters }) => (
     <div className='movies_toolbar'>
-        <Filter filters={filters} />
-        <Sorter sorters={sorters} />
+        <Filter items={filters} />
+        <Sorter items={sorters} />
     </div>
 );
 
 Toolbar.propTypes = {
     filters: PropTypes.arrayOf(PropTypes.string),
-    sorters: PropTypes.arrayOf(PropTypes.string)
+    sorters: PropTypes.arrayOf(PropTypes.object)
 };
 Toolbar.defaultProps = {
     filters: [],
