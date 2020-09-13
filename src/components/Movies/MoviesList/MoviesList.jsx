@@ -4,14 +4,14 @@ import MovieItem from '../MovieItem';
 
 import './MoviesList.css';
 
-const MoviesList = ({ items, onMovieEditClick, onMovieDeleteClick }) => (
+const MoviesList = ({ items, onMovieEditClick, onMovieDeleteClick, onMovieClick }) => (
     <div className='moviesList'>
         <p className='moviesList_counter'>
             <span>{items.length}</span> movies found
         </p>
         {
             items.map(movie => <MovieItem key={movie.id} movie={movie} className='moviesList_movieItem'
-                onMovieEditClick={onMovieEditClick} onMovieDeleteClick={onMovieDeleteClick} />)
+                onMovieEditClick={onMovieEditClick} onMovieDeleteClick={onMovieDeleteClick} onMovieClick={onMovieClick} />)
         }
         <div className='dummyFlexItem' />
     </div>
@@ -33,9 +33,13 @@ MoviesList.propTypes = {
         runtime: PropTypes.number
     })),
     onMovieEditClick: PropTypes.func,
-    onMovieDeleteClick: PropTypes.func
+    onMovieDeleteClick: PropTypes.func,
+    onMovieClick: PropTypes.func
 };
 MoviesList.defaultProps = {
-    items: []
+    items: [],
+    onMovieEditClick: () => { },
+    onMovieDeleteClick: () => { },
+    onMovieClick: () => { }
 };
 export default MoviesList;

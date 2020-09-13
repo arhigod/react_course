@@ -1,4 +1,5 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
+import { useComponentDidMount } from '../../hooks/lifecycle';
 import Movies from '../../components/Movies';
 import Logo from '../../components/Logo';
 import Wrapper from '../../components/Wrapper';
@@ -16,19 +17,16 @@ export default function App() {
     const [movies, setMovies] = useState([]);
     const [currentMovie, setCurrentMovie] = useState(null);
     const [openedModal, setOpenedModal] = useState('');
+    const [isShowCurrentMovie, setIsShowCurrentMovie] = useState(false);
 
-    useEffect(() => {
-        retriveMovies();
-    }, []);
-
-    const retriveMovies = () => {
+    useComponentDidMount(() => {
         fetch('qwe')
             .then(response => response.ok ? response.data : (console.log('mockdata is used'), moviesMock))
             .catch(() => (console.log('mockdata is used'), moviesMock))
             .then(movies => {
                 setMovies(movies);
             });
-    };
+    });
 
     const onAddMovieClick = useCallback(() => {
         setOpenedModal('AddMovie');
@@ -63,17 +61,30 @@ export default function App() {
         setOpenedModal('');
     }, []);
 
+    const onMovieClick = useCallback((movie) => {
+        setCurrentMovie(movie);
+        setIsShowCurrentMovie(true);
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }, []);
+
+    const onBackClick = useCallback(()=>{
+        setIsShowCurrentMovie(false);
+    }, []);
+
     return (
         <>
             <div className={openedModal ? 'blur' : ''}>
                 <WrapperPosters>
                     <Wrapper>
-                        <Header onAddMovieClick={onAddMovieClick} />
+                        <Header onAddMovieClick={onAddMovieClick} onSearchIconClick={onBackClick} showMovieDetails={isShowCurrentMovie} movie={currentMovie} />
                     </Wrapper>
                 </WrapperPosters>
                 <main>
                     <Wrapper>
-                        <Movies movies={movies} onMovieEditClick={onMovieEditClick} onMovieDeleteClick={onMovieDeleteClick} />
+                        <Movies movies={movies} onMovieClick={onMovieClick} onMovieEditClick={onMovieEditClick} onMovieDeleteClick={onMovieDeleteClick} />
                     </Wrapper>
                 </main>
                 <Footer>

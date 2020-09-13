@@ -1,0 +1,61 @@
+.movieDetails {
+    display: flex;
+
+    color: var(--c7);
+}
+
+.movieDetails_poster {
+    width: 270px;
+    height: 368px;
+}
+
+.movieDetails_detailBlock {
+    display: flex;
+    flex-direction: column;
+
+    margin-left: 50px;
+}
+
+.movieDetails_title {
+    font: 400 45px/90px Montserrat;
+
+    display: inline;
+}
+
+.movieDetails_vote_average {
+    font: 300 25px/35px Montserrat;
+
+    display: inline-block;
+
+    width: 35px;
+    margin-left: 20px;
+    padding: 20px;
+
+    text-align: center;
+    vertical-align: super;
+
+    color: #7aaf55;
+    border: 1px solid var(--c7);
+    border-radius: 50%;
+}
+
+.movieDetails_tagline {
+    font: 300 15px Montserrat;
+}
+
+.movieDetails_numbersBlock {
+    font: 400 25px Montserrat;
+
+    margin: 25px 0;
+
+    color: var(--c1);
+}
+
+.movieDetails_release_date {
+    margin-right: 30px;
+}
+
+.movieDetails_overview {
+    margin: 0;
+    font: 400 16px Montserrat;
+}

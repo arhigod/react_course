@@ -1,4 +1,5 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
+import { useComponentDidUnmount } from '../../hooks/lifecycle';
 import PropTypes from 'prop-types';
 
 import './Select.css';
@@ -7,10 +8,8 @@ const Select = ({ placeholder, multiselect, items, value, onChange }) => {
     const [selectedItem, setSelectedItem] = useState(!multiselect && items[0] ? items[0] : '');
     const [isOpen, setIsOpen] = useState(false);
 
-    useEffect(() => {
-        return function () {
-            document.removeEventListener('click', onDocumentClick);
-        };
+    useComponentDidUnmount(() => {
+        document.removeEventListener('click', onDocumentClick);
     }, [onDocumentClick]);
 
     const onDocumentClick = useCallback((e) => {
@@ -32,8 +31,9 @@ const Select = ({ placeholder, multiselect, items, value, onChange }) => {
 
         if (multiselect) {
             let newValue = [...value];
+
             if (newValue.includes(item)) {
-                newValue.splice(newValue.indexOf(item), 1);
+                newValue = newValue.filter(x => x !== item);
             } else {
                 newValue.push(item);
             }

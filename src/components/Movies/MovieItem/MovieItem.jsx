@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../../Button';
+import Poster from '../../Poster';
 import MovieSettings from '../MovieSettings';
 import { DotsVerticalRounded } from '@styled-icons/boxicons-regular/DotsVerticalRounded';
 
@@ -8,7 +9,7 @@ import './MovieItem.css';
 
 const dotsIcon = <DotsVerticalRounded size='45' />;
 
-const MovieItem = ({ className, movie, movie: { poster_path, title, release_date, tagline }, onMovieEditClick, onMovieDeleteClick }) => {
+const MovieItem = ({ className, movie, movie: { poster_path, title, release_date, tagline }, onMovieEditClick, onMovieDeleteClick, onMovieClick }) => {
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
     const onSettingsButtonClick = useCallback(() => {
@@ -29,20 +30,26 @@ const MovieItem = ({ className, movie, movie: { poster_path, title, release_date
         onMovieDeleteClick(movie);
     }, [movie, onMovieDeleteClick]);
 
+    const onMovClick = useCallback((e) => {
+        if (!e.target.closest('.movieItem_movieSettings') && !e.target.closest('.movieItem_detailButton')) {
+            onMovieClick(movie);
+        }
+    }, [movie, onMovieClick]);
+
     return (
-        <div className={`movieItem ${className}`} onMouseLeave={onCloseSettingsClick}>
+        <div className={`movieItem ${className}`} onMouseLeave={onCloseSettingsClick} onClick={onMovClick} >
             {
                 isSettingsOpen ?
                     <MovieSettings className='movieItem_movieSettings' onCloseClick={onCloseSettingsClick} onEditClick={onEditSettingsClick}
                         onDeleteClick={onDeleteSettingsClick} /> :
                     <Button icon={dotsIcon} className='movieItem_detailButton' onClick={onSettingsButtonClick} />
             }
-            <img className='movieItem_poster' src={poster_path} />
-            <div className='movieItem_poster_description_mainBlock'>
-                <span className='movieItem_poster_description_title'>{title}</span>
-                <span className='movieItem_poster_description_date'>{release_date.slice(0, 4)}</span>
+            <Poster className='movieItem_poster' src={poster_path} />
+            <div className='movieItem_description_mainBlock'>
+                <span className='movieItem_description_title'>{title}</span>
+                <span className='movieItem_description_date'>{release_date.slice(0, 4)}</span>
             </div>
-            <span className='movieItem_poster_description_tagline'>{tagline}</span>
+            <span className='movieItem_description_tagline'>{tagline}</span>
         </div>
     );
 };
@@ -64,9 +71,13 @@ MovieItem.propTypes = {
         runtime: PropTypes.number
     }),
     onMovieEditClick: PropTypes.func,
-    onMovieDeleteClick: PropTypes.func
+    onMovieDeleteClick: PropTypes.func,
+    onMovieClick: PropTypes.func
 };
 MovieItem.defaultProps = {
-    className: ''
+    className: '',
+    onMovieEditClick: () => { },
+    onMovieDeleteClick: () => { },
+    onMovieClick: () => { }
 };
 export default MovieItem;

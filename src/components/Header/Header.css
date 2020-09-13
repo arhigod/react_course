@@ -1,7 +1,22 @@
 .header {
-    height: 400px;
+    min-height: 400px;
+}
+
+.header.darkBg::before {
+    z-index: -10;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: '';
+    position: absolute;
+    background-color: rgba(0, 0, 0, .7);
 }
 
 .header_search {
     margin: 50px 50px 0;
+}
+
+.header_movieDetails {
+    padding: 40px 0 68px;
 }
