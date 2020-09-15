@@ -1,10 +1,12 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-require('../../../images/defaultPoster.jpg');
 
 const Poster = ({ className, src }) => {
     const setDefaultPoster = useCallback((e) => {
-        e.target.src = './images/defaultPoster.jpg';
+        let img = e.target;
+        import('../../../images/defaultPoster.jpg').then(x => {
+            img.src = x.default;
+        });
     }, []);
 
     return (
@@ -18,6 +20,6 @@ Poster.propTypes = {
 };
 Poster.defaultProps = {
     className: '',
-    src: './images/defaultPoster.jpg'
+    src: ''
 };
 export default Poster;
