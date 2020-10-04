@@ -7,23 +7,26 @@ import './Modal.css';
 
 const closeIcon = <Close size='40' />;
 
-const Modal = ({ title, children, rejectText, acceptText, showReject, onCloseClick, onAcceptClick, onRejectClick }) => (
-    <div className='modal_background'>
-        <div className='modal_container'>
-            <div className='modal_header'>
-                <Button className='modal_button_close' icon={closeIcon} type='transparent' onClick={onCloseClick} />
-                <p className='modal_title'>{title}</p>
-            </div>
-            <div className='modal_content'>
-                {children}
-            </div>
-            <div className='modal_footer'>
-                {showReject && <Button text={rejectText} type='reject' onClick={onRejectClick} />}
-                <Button text={acceptText} onClick={onAcceptClick} />
+const Modal = ({ title, children, rejectText, acceptText, showReject, onCloseClick, onAcceptClick, onRejectClick }) => {
+
+    return (
+        <div className='modal_background'>
+            <div className='modal_container'>
+                <div className='modal_header'>
+                    <Button className='modal_button_close' icon={closeIcon} type='transparent' onClick={onCloseClick} />
+                    <p className='modal_title'>{title}</p>
+                </div>
+                <div className='modal_content'>
+                    {children}
+                </div>
+                <div className='modal_footer'>
+                    {showReject && <Button text={rejectText} type='reject' onClick={onRejectClick} />}
+                    <Button text={acceptText} onClick={onAcceptClick} />
+                </div>
             </div>
         </div>
-    </div>
-);
+    );
+};
 
 Modal.propTypes = {
     className: PropTypes.string,

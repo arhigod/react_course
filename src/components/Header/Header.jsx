@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SubHeader from './SubHeader';
 import MovieDetails from './MovieDetails';
@@ -7,14 +8,14 @@ import ErrorBoundary from '../ErrorBoundary';
 
 import './Header.css';
 
-const Header = ({ movie, showMovieDetails, onAddMovieClick, onSearchIconClick }) => {
+const Header = ({ currentMovie }) => {
     return (
         <ErrorBoundary>
-            <div className={`header ${showMovieDetails ? 'darkBg' : ''}`}>
-                <SubHeader onAddMovieClick={onAddMovieClick} onSearchIconClick={onSearchIconClick} showSearchIcon={showMovieDetails} />
+            <div className={`header ${currentMovie ? 'darkBg' : ''}`}>
+                <SubHeader showSearchIcon={!!currentMovie} />
                 {
-                    showMovieDetails ?
-                        <MovieDetails className='header_movieDetails' movie={movie} /> :
+                    currentMovie ?
+                        <MovieDetails className='header_movieDetails' movie={currentMovie} /> :
                         <Search className='header_search' />
                 }
             </div>
@@ -22,29 +23,14 @@ const Header = ({ movie, showMovieDetails, onAddMovieClick, onSearchIconClick })
     );
 };
 
+const mapStateToProps = (state) => ({
+    currentMovie: state.currentMovie
+});
+
 Header.propTypes = {
-    movie: PropTypes.shape({
-        id: PropTypes.number,
-        title: PropTypes.string,
-        tagline: PropTypes.string,
-        vote_average: PropTypes.number,
-        vote_count: PropTypes.number,
-        release_date: PropTypes.string,
-        poster_path: PropTypes.string,
-        overview: PropTypes.string,
-        budget: PropTypes.number,
-        revenue: PropTypes.number,
-        genres: PropTypes.arrayOf(PropTypes.string),
-        runtime: PropTypes.number
-    }),
-    showMovieDetails: PropTypes.bool,
-    onAddMovieClick: PropTypes.func,
-    onSearchIconClick: PropTypes.func
+    currentMovie: PropTypes.object
 };
 Header.defaultProps = {
-    movie: {},
-    showMovieDetails: false,
-    onAddMovieClick: () => { },
-    onSearchIconClick: () => { }
+    showMovieDetails: false
 };
-export default Header;
+export default connect(mapStateToProps)(Header);

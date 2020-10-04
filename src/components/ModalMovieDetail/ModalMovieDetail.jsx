@@ -10,8 +10,8 @@ import './ModalMovieDetail.css';
 const ModalMovieDetail = ({ movie, onCloseClick, onSubmitClick }) => {
     const [data, setData] = useState(movie);
 
-    const onInputChanged = useCallback(({ currentTarget: { value, name } }) => {
-        setData({ ...data, [name]: value });
+    const onInputChanged = useCallback(({ currentTarget: { type, value, name } }) => {
+        setData({ ...data, [name]: type === 'number' ? +value : value });
     }, [data]);
 
     const onSelectChanged = useCallback((selectedItems) => {
@@ -36,6 +36,10 @@ const ModalMovieDetail = ({ movie, onCloseClick, onSubmitClick }) => {
             <div className='field'>
                 <label>Title</label>
                 <Input placeholder='Title here' value={data.title} name='title' onChange={onInputChanged} />
+            </div>
+            <div className='field'>
+                <label>Tagline</label>
+                <Input placeholder='Tagline here' value={data.tagline} name='tagline' onChange={onInputChanged} />
             </div>
             <div className='field'>
                 <label>Release date</label>

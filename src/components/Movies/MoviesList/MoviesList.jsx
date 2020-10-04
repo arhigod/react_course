@@ -1,45 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import MovieItem from '../MovieItem';
 
 import './MoviesList.css';
 
-const MoviesList = ({ items, onMovieEditClick, onMovieDeleteClick, onMovieClick }) => (
-    <div className='moviesList'>
+const MoviesList = ({ movies, totalAmount, isLoading }) => (
+    <div className={`moviesList ${isLoading ? 'loading' : ''}`}>
         <p className='moviesList_counter'>
-            <span>{items.length}</span> movies found
+            <span>{totalAmount}</span> movies found
         </p>
         {
-            items.map(movie => <MovieItem key={movie.id} movie={movie} className='moviesList_movieItem'
-                onMovieEditClick={onMovieEditClick} onMovieDeleteClick={onMovieDeleteClick} onMovieClick={onMovieClick} />)
+            movies.map(movie => <MovieItem key={movie.id} movie={movie} className='moviesList_movieItem' />)
         }
         <div className='dummyFlexItem' />
     </div>
 );
 
+const mapStateToProps = (state) => ({
+    movies: state.movies,
+    totalAmount: state.totalAmount,
+    isLoading: state.isLoading
+});
+
 MoviesList.propTypes = {
-    items: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number,
-        title: PropTypes.string,
-        tagline: PropTypes.string,
-        vote_average: PropTypes.number,
-        vote_count: PropTypes.number,
-        release_date: PropTypes.string,
-        poster_path: PropTypes.string,
-        overview: PropTypes.string,
-        budget: PropTypes.number,
-        revenue: PropTypes.number,
-        genres: PropTypes.arrayOf(PropTypes.string),
-        runtime: PropTypes.number
-    })),
-    onMovieEditClick: PropTypes.func,
-    onMovieDeleteClick: PropTypes.func,
-    onMovieClick: PropTypes.func
+    totalAmount: PropTypes.number,
+    movies: PropTypes.array,
+    isLoading: PropTypes.bool
 };
 MoviesList.defaultProps = {
-    items: [],
-    onMovieEditClick: () => { },
-    onMovieDeleteClick: () => { },
-    onMovieClick: () => { }
+    items: []
 };
-export default MoviesList;
+export default connect(mapStateToProps)(MoviesList);

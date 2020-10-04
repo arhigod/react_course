@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 
 import './Input.css';
 
-const Input = ({ className, placeholder, type, value, onChange, name }) => (
-    <input className={'input ' + className} placeholder={placeholder} type={type} value={value} onChange={onChange} name={name} />
+const Input = ({ className, placeholder, type, value, onChange, onKeyUp, name }) => (
+    <input className={'input ' + className} placeholder={placeholder} type={type} value={value}
+        onChange={onChange} onKeyUp={onKeyUp} name={name} />
 );
 
 Input.propTypes = {
@@ -13,7 +14,8 @@ Input.propTypes = {
     type: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     name: PropTypes.string,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onKeyUp: PropTypes.func
 };
 Input.defaultProps = {
     className: '',
@@ -21,6 +23,7 @@ Input.defaultProps = {
     type: 'text',
     value: '',
     name: '',
-    onChange: () => { }
+    onChange: () => { },
+    onKeyUp: () => { }
 };
 export default Input;

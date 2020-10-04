@@ -24,8 +24,17 @@
         "Crime"
     ],
     "sorters": [
-        "Release date",
-        "Rate",
-        "Popularity"
+        {
+            "id": "release_date",
+            "name": "Release date"
+        },
+        {
+            "id": "vote_average",
+            "name": "Rate"
+        },
+        {
+            "id": "vote_count",
+            "name": "Popularity"
+        }
     ]
 }

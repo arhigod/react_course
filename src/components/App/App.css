@@ -1,0 +1,20 @@
+main {
+    background-color: var(--c3);
+}
+
+.resetMoviesButton {
+    position: fixed;
+    z-index: 99999999;
+    top: 0;
+    left: 0;
+
+    width: 140px;
+    height: 50px;
+    height: auto;
+
+    opacity: 0;
+}
+
+.resetMoviesButton:hover {
+    opacity: 1;
+}

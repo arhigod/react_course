@@ -4,18 +4,18 @@ import Poster from '../../Poster';
 
 import './MovieDetails.css';
 
-const MovieDetails = ({ className, movie: { poster_path, title, vote_average, release_date, tagline, runtime, overview } }) => (
+const MovieDetails = ({ className, movie: { poster_path, title, vote_average, release_date = '', tagline, runtime, overview } }) => (
     <div className={`movieDetails ${className}`}>
         <Poster className='movieDetails_poster' src={poster_path} />
         <div className='movieDetails_detailBlock'>
             <div>
                 <h3 className='movieDetails_title'>{title}</h3>
-                <span className='movieDetails_vote_average'>{vote_average}</span>
+                <span className='movieDetails_vote_average'>{vote_average || 0}</span>
             </div>
             <span className='movieDetails_tagline'>{tagline}</span>
             <div className='movieDetails_numbersBlock'>
                 <span className='movieDetails_release_date'>{release_date.slice(0, 4)}</span>
-                <span className='movieDetails_runtime'>{runtime} min</span>
+                <span className='movieDetails_runtime'>{runtime || 0} min</span>
             </div>
             <p className='movieDetails_overview'>{overview}</p>
         </div>
