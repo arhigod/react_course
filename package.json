@@ -35,6 +35,7 @@
     "eslint-plugin-react": "^7.20.3",
     "eslint-plugin-react-hooks": "^4.1.0",
     "file-loader": "^6.0.0",
+    "formik": "^2.1.7",
     "html-webpack-plugin": "^4.3.0",
     "jest": "^26.1.0",
     "prop-types": "^15.7.2",

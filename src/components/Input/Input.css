@@ -3,6 +3,7 @@
 
     position: relative;
 
+    margin-bottom: 2px;
     padding: 16px 20px;
 
     color: var(--c6);
@@ -14,4 +15,23 @@
 
 .input::placeholder {
     color: var(--c4);
+}
+
+.input.inputError {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--c9) inset;
+}
+
+.input + .inputErrorMessage {
+    font: 16px Montserrat;
+
+    display: none;
+
+    height: 0;
+
+    color: var(--c9);
+}
+
+.input.inputError + .inputErrorMessage {
+    display: inline-block;
 }
