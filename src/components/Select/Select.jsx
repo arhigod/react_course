@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import './Select.css';
 
-const Select = ({ placeholder, multiselect, items, value, onChange }) => {
+const Select = ({ placeholder, multiselect, items, value, onChange, error }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     useComponentDidUnmount(() => {
@@ -45,21 +45,24 @@ const Select = ({ placeholder, multiselect, items, value, onChange }) => {
     }, [multiselect, onChange, value]);
 
     return (
-        <div className={'select' + (isOpen ? ' open' : '')} onClick={onSelectClick}>
-            <span className={value.length ? '' : 'placeholder'}>
-                {value.join(', ') || placeholder}
-            </span>
-            <ul>
-                {
-                    items.map((item) => (
-                        <li className={value.includes(item) ? 'selected' : ''} onClick={onItemClick}
-                            key={item} data-item={item}>
-                            {item}
-                        </li>
-                    ))
-                }
-            </ul>
-        </div>
+        <>
+            <div className={`select ${error ? 'selectError' : ''} ${isOpen ? 'open' : ''}`} onClick={onSelectClick}>
+                <span className={value.length ? '' : 'placeholder'}>
+                    {value.join(', ') || placeholder}
+                </span>
+                <ul>
+                    {
+                        items.map((item) => (
+                            <li className={value.includes(item) ? 'selected' : ''} onClick={onItemClick}
+                                key={item} data-item={item}>
+                                {item}
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+            <div className='selectErrorMessage'>{error}</div>
+        </>
     );
 };
 
@@ -68,6 +71,7 @@ Select.propTypes = {
     value: PropTypes.arrayOf(PropTypes.string),
     multiselect: PropTypes.bool,
     placeholder: PropTypes.string,
+    error: PropTypes.string,
     onChange: PropTypes.func
 };
 Select.defaultProps = {
@@ -75,6 +79,7 @@ Select.defaultProps = {
     value: [],
     multiselect: false,
     placeholder: 'Select an item',
+    error: '',
     onChange: () => { }
 };
 export default Select;

@@ -1,4 +1,5 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
+import { useFormik } from 'formik';
 import PropTypes from 'prop-types';
 import Modal from '../Modal';
 import Input from '../Input';
@@ -8,58 +9,85 @@ import config from '../../../config/config.json';
 import './ModalMovieDetail.css';
 
 const ModalMovieDetail = ({ movie, onCloseClick, onSubmitClick }) => {
-    const [data, setData] = useState(movie);
+    const formik = useFormik({
+        initialValues: movie,
+        validateOnChange: false,
+        onSubmit: onSubmitClick,
+        validate: values => {
+            let errors = {};
 
-    const onInputChanged = useCallback(({ currentTarget: { type, value, name } }) => {
-        setData({ ...data, [name]: type === 'number' ? +value : value });
-    }, [data]);
+            ['title', 'tagline', 'release_date', 'poster_path', 'overview', 'runtime'].forEach(type => {
+                if (!values[type] && values[type] !== 0) {
+                    errors[type] = 'Required field';
+                }
+            });
+            if (values.runtime && values.runtime < 0 ) {
+                errors.runtime = 'Must be larger than or equal to 0';
+            }
+            if (!values.genres.length) {
+                errors.genres = 'Required field';
+            }
+            if (values.poster_path && !/^(ftp|http|https):\/\/[^ "]+$/.test(values.poster_path)) {
+                errors.poster_path = 'Required valid URL';
+            }
 
-    const onSelectChanged = useCallback((selectedItems) => {
-        setData({ ...data, genres: selectedItems });
-    }, [data]);
+            return errors;
+        }
+    });
 
-    const onAcceptClick = useCallback(() => {
-        onSubmitClick(data);
-    }, [data, onSubmitClick]);
+    const onInputChanged = useCallback(e => {
+        formik.setErrors({
+            ...formik.errors,
+            [e.currentTarget.name]: undefined
+        });
+        formik.handleChange(e);
+    }, [formik]);
 
-    const onRejectClick = useCallback(() => {
-        setData(movie);
-    }, [movie]);
+    const onGenreChanged = useCallback(selectedItems => {
+        formik.setErrors({
+            ...formik.errors,
+            genres: undefined
+        });
+        formik.setValues({
+            ...formik.values,
+            genres: selectedItems
+        });
+    }, [formik]);
 
     return (
         <Modal title={movie.id ? 'Edit movie' : 'Add movie'} acceptText={movie.id ? 'Save' : 'Submit'}
-            onCloseClick={onCloseClick} onAcceptClick={onAcceptClick} onRejectClick={onRejectClick}>
+            onCloseClick={onCloseClick} onAcceptClick={formik.handleSubmit} onRejectClick={formik.handleReset}>
             <div className={`field notEditable ${movie.id ? '' : 'notDisplayed'}`}>
                 <label>Movie id</label>
-                <span>{data.id}</span>
+                <span>{formik.values.id}</span>
             </div>
             <div className='field'>
                 <label>Title</label>
-                <Input placeholder='Title here' value={data.title} name='title' onChange={onInputChanged} />
+                <Input placeholder='Title here' value={formik.values.title} name='title' onChange={onInputChanged} error={formik.errors.title} />
             </div>
             <div className='field'>
                 <label>Tagline</label>
-                <Input placeholder='Tagline here' value={data.tagline} name='tagline' onChange={onInputChanged} />
+                <Input placeholder='Tagline here' value={formik.values.tagline} name='tagline' onChange={onInputChanged} error={formik.errors.tagline} />
             </div>
             <div className='field'>
                 <label>Release date</label>
-                <Input type='date' placeholder='Select Date' value={data.release_date} name='release_date' onChange={onInputChanged} />
+                <Input type='date' placeholder='Select Date' value={formik.values.release_date} name='release_date' onChange={onInputChanged} error={formik.errors.release_date} />
             </div>
             <div className='field'>
                 <label>Movie URL</label>
-                <Input placeholder='Movie URL here' value={data.poster_path} name='poster_path' onChange={onInputChanged} />
+                <Input placeholder='Movie URL here' value={formik.values.poster_path} name='poster_path' onChange={onInputChanged} error={formik.errors.poster_path} />
             </div>
             <div className='field'>
                 <label>Genre</label>
-                <Select multiselect placeholder='Select Genre' items={config.genres} value={data.genres} onChange={onSelectChanged} />
+                <Select multiselect placeholder='Select Genre' items={config.genres} value={formik.values.genres} onChange={onGenreChanged} error={formik.errors.genres} />
             </div>
             <div className='field'>
                 <label>Overview</label>
-                <Input placeholder='Overview here' value={data.overview} name='overview' onChange={onInputChanged} />
+                <Input placeholder='Overview here' value={formik.values.overview} name='overview' onChange={onInputChanged} error={formik.errors.overview} />
             </div>
             <div className='field'>
                 <label>Runtime</label>
-                <Input placeholder='Runtime' type='number' value={data.runtime} name='runtime' onChange={onInputChanged} />
+                <Input placeholder='Runtime' type='number' value={formik.values.runtime} name='runtime' onChange={onInputChanged} error={formik.errors.runtime}/>
             </div>
         </Modal>
     );
@@ -84,7 +112,15 @@ ModalMovieDetail.propTypes = {
     onSubmitClick: PropTypes.func
 };
 ModalMovieDetail.defaultProps = {
-    movie: {},
+    movie: {
+        title: '',
+        tagline: '',
+        release_date: '',
+        poster_path: '',
+        overview: '',
+        genres: [],
+        runtime: undefined
+    },
     onCloseClick: () => { },
     onSubmitClick: () => { }
 };
