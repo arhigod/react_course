@@ -28,17 +28,23 @@ const Pagination = ({ currentPage, totalAmount, setPage }) => {
     }, [currentPage, pageAmount, setPage]);
 
     return (
-        <div className='movies_pagination'>
-            <Button onClick={onClick} icon={doubleArrowLeftIcon} type='transparent' data='1' />
-            <Button onClick={onClick} icon={arrowLeftIcon} type='transparent' data={currentPage - 1} />
-            <Button onClick={onClick} text={currentPage - 2} type='reject' className={currentPage < 3 ? 'dummy' : ''} data={currentPage - 2} />
-            <Button onClick={onClick} text={currentPage - 1} type='reject' className={currentPage < 2 ? 'dummy' : ''} data={currentPage - 1} />
-            <Button onClick={onClick} text={currentPage} data={currentPage} />
-            <Button onClick={onClick} text={currentPage + 1} type='reject' className={currentPage > pageAmount - 1 ? 'dummy' : ''} data={currentPage + 1} />
-            <Button onClick={onClick} text={currentPage + 2} type='reject' className={currentPage > pageAmount - 2 ? 'dummy' : ''} data={currentPage + 2} />
-            <Button onClick={onClick} icon={arrowRightIcon} type='transparent' data={currentPage + 1} />
-            <Button onClick={onClick} icon={doubleArrowRightIcon} type='transparent' data={pageAmount} />
-        </div>
+        <>
+            {
+                totalAmount > 12 ?
+                    <div className='movies_pagination'>
+                        <Button onClick={onClick} icon={doubleArrowLeftIcon} type='transparent' data='1' />
+                        <Button onClick={onClick} icon={arrowLeftIcon} type='transparent' data={currentPage - 1} />
+                        <Button onClick={onClick} text={currentPage - 2} type='reject' className={currentPage < 3 ? 'dummy' : ''} data={currentPage - 2} />
+                        <Button onClick={onClick} text={currentPage - 1} type='reject' className={currentPage < 2 ? 'dummy' : ''} data={currentPage - 1} />
+                        <Button onClick={onClick} text={currentPage} data={currentPage} />
+                        <Button onClick={onClick} text={currentPage + 1} type='reject' className={currentPage > pageAmount - 1 ? 'dummy' : ''} data={currentPage + 1} />
+                        <Button onClick={onClick} text={currentPage + 2} type='reject' className={currentPage > pageAmount - 2 ? 'dummy' : ''} data={currentPage + 2} />
+                        <Button onClick={onClick} icon={arrowRightIcon} type='transparent' data={currentPage + 1} />
+                        <Button onClick={onClick} icon={doubleArrowRightIcon} type='transparent' data={pageAmount} />
+                    </div> :
+                    null
+            }
+        </>
     );
 };
 

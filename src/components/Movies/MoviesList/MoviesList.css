@@ -41,6 +41,7 @@
     border-color: var(--c1) transparent;
     border-radius: 50%;
 }
+
 @keyframes spin {
     0% {
         transform: rotate(0deg);
@@ -73,4 +74,15 @@
 
 .moviesList .dummyFlexItem {
     width: 340px;
+}
+
+.moviesList_noMovies {
+    font: 200 60px/640px Montserrat;
+
+    width: 100%;
+    margin: 0;
+
+    text-align: center;
+
+    color: var(--c7);
 }

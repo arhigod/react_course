@@ -2,6 +2,7 @@ const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const DirectoryNamedWebpackPlugin = require('directory-named-webpack-plugin');
+const path = require('path');
 
 module.exports = env => {
     const mode = env.MODE || 'dev';
@@ -10,7 +11,10 @@ module.exports = env => {
     return merge({
         entry: './src/index.jsx',
         output: {
-            filename: 'bundle.js'
+            // eslint-disable-next-line no-undef
+            path: path.resolve(__dirname, './dist'),
+            filename: 'bundle.js',
+            publicPath: '/'
         },
         module: {
             rules: [{
