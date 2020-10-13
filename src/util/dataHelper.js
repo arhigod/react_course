@@ -39,7 +39,7 @@ export default {
             body: JSON.stringify(movie)
         });
         const data = await response.json();
-        return data.messages ? Promise.reject(data.messages) : data;
+        return data.messages ? Promise.reject(JSON.stringify(data.messages, 0, 2)) : data;
     },
 
     editMovie: async function (movie) {
@@ -51,7 +51,7 @@ export default {
             body: JSON.stringify(movie)
         });
         const data = await response.json();
-        return data.messages ? Promise.reject(data.messages) : data;
+        return data.messages ? Promise.reject(JSON.stringify(data.messages, 0, 2)) : data;
     },
 
     deleteMovie: async function (id) {

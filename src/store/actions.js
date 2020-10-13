@@ -63,19 +63,23 @@ export const getMovies = (newSearch, withoutScroll) => async (dispatch, getState
 export const addMovie = (movie) => async dispatch => {
     dispatch(setIsLoading(true));
 
-    await dataHelper.addMovie(movie);
-    dispatch(getMovies(true));
-
-    dispatch(setIsLoading(false));
+    try {
+        await dataHelper.addMovie(movie);
+        dispatch(getMovies(true));
+    } finally {
+        dispatch(setIsLoading(false));
+    }
 };
 
 export const editMovie = (movie) => async dispatch => {
     dispatch(setIsLoading(true));
 
-    await dataHelper.editMovie(movie);
-    dispatch(getMovies());
-
-    dispatch(setIsLoading(false));
+    try {
+        await dataHelper.editMovie(movie);
+        dispatch(getMovies());
+    } finally {
+        dispatch(setIsLoading(false));
+    }
 };
 
 export const deleteMovie = (movie) => async dispatch => {
