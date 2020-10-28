@@ -3,10 +3,6 @@
     flex-direction: column;
 }
 
-.field.notDisplayed {
-    display: none;
-}
-
 .field.notEditable span {
     font: 22px Montserrat;
     color: var(--c6);

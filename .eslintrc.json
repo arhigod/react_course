@@ -26,6 +26,11 @@
     },
     "globals": {
         "module": true,
-        "require": true
+        "require": true,
+        "describe": true,
+        "beforeEach": true,
+        "test": true,
+        "jest": true,
+        "expect": true
     }
 }
