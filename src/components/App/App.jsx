@@ -1,8 +1,9 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useComponentDidMount, useComponentDidUpdate } from '../../hooks/lifecycle';
-import { getMovies, resetMovies } from '../../store/actions';
+import { getMovies, resetMovies, setSearch, setCurrentMovieById, setCurrentMovie } from '../../store/actions';
 import Movies from '../Movies';
 import Button from '../Button';
 import Logo from '../Logo';
@@ -14,10 +15,34 @@ import Header from '../Header';
 import '../../../fonts/fonts.css';
 import './App.css';
 
-const App = ({ scrollTop, scrollMovies, getMovies, resetMovies }) => {
+const App = ({ scrollTop, scrollMovies, getMovies, resetMovies, setSearch, search, currentMovie, setCurrentMovieById, setCurrentMovie }) => {
+    const params = useParams();
+
     useComponentDidMount(() => {
-        getMovies(true);
+        if (params.searchValue) {
+            setSearch(params.searchValue);
+        } else {
+            getMovies(true, true);
+        }
+        if (params.movieId) {
+            setCurrentMovieById(params.movieId);
+        }
     });
+
+    useComponentDidUpdate(() => {
+        if (params.searchValue && params.searchValue !== search) {
+            setSearch(params.searchValue);
+        }
+        if (params.movieId && (!currentMovie || params.movieId !== currentMovie.id + '')) {
+            setCurrentMovieById(params.movieId);
+        }
+        if (!params.searchValue && !params.movieId && search) {
+            setSearch('', true);
+        }
+        if (!params.searchValue && !params.movieId && currentMovie) {
+            setCurrentMovie(null);
+        }
+    }, [params, search, setSearch, currentMovie, setCurrentMovieById]);
 
     useComponentDidUpdate(() => {
         if (scrollTop > 0) {
@@ -29,7 +54,7 @@ const App = ({ scrollTop, scrollMovies, getMovies, resetMovies }) => {
     }, [scrollTop]);
 
     useComponentDidUpdate(() => {
-        if (scrollMovies > 1) {
+        if (scrollMovies > 0) {
             document.querySelector('main').scrollIntoView({ behavior: 'smooth' });
         }
     }, [scrollMovies]);
@@ -57,19 +82,29 @@ const App = ({ scrollTop, scrollMovies, getMovies, resetMovies }) => {
 };
 
 const mapStateToProps = (state) => ({
+    search: state.search,
+    currentMovie: state.currentMovie,
     scrollTop: state.scrollTop,
     scrollMovies: state.scrollMovies
 });
 
 const mapDispatchToProps = dispatch => ({
-    getMovies: (newSearch) => dispatch(getMovies(newSearch)),
-    resetMovies: () => dispatch(resetMovies())
+    setCurrentMovieById: (id) => dispatch(setCurrentMovieById(id)),
+    setCurrentMovie: (movie) => dispatch(setCurrentMovie(movie)),
+    getMovies: (newSearch, withoutScroll) => dispatch(getMovies(newSearch, withoutScroll)),
+    resetMovies: () => dispatch(resetMovies()),
+    setSearch: (value, withoutScroll) => dispatch(setSearch(value, withoutScroll))
 });
 
 App.propTypes = {
+    setCurrentMovieById: PropTypes.func,
+    setCurrentMovie: PropTypes.func,
+    setSearch: PropTypes.func,
+    search: PropTypes.string,
     scrollTop: PropTypes.number,
     scrollMovies: PropTypes.number,
     getMovies: PropTypes.func,
-    resetMovies: PropTypes.func
+    resetMovies: PropTypes.func,
+    currentMovie: PropTypes.object
 };
 export default connect(mapStateToProps, mapDispatchToProps)(App);

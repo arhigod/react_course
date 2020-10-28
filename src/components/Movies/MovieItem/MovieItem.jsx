@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { editMovie, deleteMovie, setCurrentMovie } from '../../../store/actions';
+import { editMovie, deleteMovie, scrollTop } from '../../../store/actions';
 import ModalMovieDetail from '../../ModalMovieDetail';
 import ModalMovieDelete from '../../ModalMovieDelete';
 import Button from '../../Button';
@@ -13,9 +14,10 @@ import './MovieItem.css';
 
 const dotsIcon = <DotsVerticalRounded size='45' />;
 
-const MovieItem = ({ editMovie, deleteMovie, setCurrentMovie, className, movie, movie: { poster_path, title, release_date = '', tagline, genres } }) => {
+const MovieItem = ({ editMovie, deleteMovie, scrollTop, className, movie, movie: { poster_path, title, release_date = '', tagline, genres } }) => {
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const [openedModal, setOpenedModal] = useState('');
+    const history = useHistory();
 
     const onEditClick = useCallback(() => {
         setIsSettingsOpen(false);
@@ -57,9 +59,10 @@ const MovieItem = ({ editMovie, deleteMovie, setCurrentMovie, className, movie, 
 
     const onMovClick = useCallback((e) => {
         if (!e.target.closest('.movieItem_movieSettings') && !e.target.closest('.movieItem_detailButton')) {
-            setCurrentMovie(movie);
+            scrollTop();
+            history.push('/movie/' + movie.id);
         }
-    }, [setCurrentMovie, movie]);
+    }, [history, movie, scrollTop]);
 
     return (
         <>
@@ -84,14 +87,14 @@ const MovieItem = ({ editMovie, deleteMovie, setCurrentMovie, className, movie, 
 };
 
 const mapDispatchToProps = dispatch => ({
-    setCurrentMovie: (movie) => dispatch(setCurrentMovie(movie)),
+    scrollTop: () => dispatch(scrollTop()),
     editMovie: (movie) => dispatch(editMovie(movie)),
     deleteMovie: (movie) => dispatch(deleteMovie(movie))
 });
 
 MovieItem.propTypes = {
     className: PropTypes.string,
-    setCurrentMovie: PropTypes.func,
+    scrollTop: PropTypes.func,
     editMovie: PropTypes.func,
     deleteMovie: PropTypes.func,
     movie: PropTypes.object

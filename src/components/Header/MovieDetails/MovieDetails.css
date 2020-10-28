@@ -41,6 +41,8 @@
 
 .movieDetails_tagline {
     font: 300 15px Montserrat;
+
+    margin-top: 5px;
 }
 
 .movieDetails_numbersBlock {
@@ -56,6 +58,7 @@
 }
 
 .movieDetails_overview {
-    margin: 0;
     font: 400 16px Montserrat;
+
+    margin: 0;
 }

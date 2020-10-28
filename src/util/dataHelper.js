@@ -20,6 +20,16 @@ export default {
         }
     },
 
+    getMovie: async function (id) {
+        try {
+            const response = await fetch('https://arhigod-movies.herokuapp.com/movies/' + id);
+            const data = await response.json();
+            return data;
+        } catch (e) {
+            return null;
+        }
+    },
+
     addMovie: async function (movie) {
         const response = await fetch('https://arhigod-movies.herokuapp.com/movies', {
             method: 'POST',

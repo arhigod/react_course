@@ -7,13 +7,21 @@ import './MoviesList.css';
 
 const MoviesList = ({ movies, totalAmount, isLoading }) => (
     <div className={`moviesList ${isLoading ? 'loading' : ''}`}>
-        <p className='moviesList_counter'>
-            <span>{totalAmount}</span> movies found
-        </p>
         {
-            movies.map(movie => <MovieItem key={movie.id} movie={movie} className='moviesList_movieItem' />)
+            totalAmount ?
+                <>
+                    <p className='moviesList_counter'>
+                        <span>{totalAmount}</span> movies found
+                    </p>
+                    {
+                        movies.map(movie => <MovieItem key={movie.id} movie={movie} className='moviesList_movieItem' />)
+                    }
+                    <div className='dummyFlexItem' />
+                </> :
+                <p className='moviesList_noMovies'>
+                    No Movie Found
+                </p>
         }
-        <div className='dummyFlexItem' />
     </div>
 );
 

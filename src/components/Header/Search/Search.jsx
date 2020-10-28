@@ -1,15 +1,16 @@
 import React, { useState, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useComponentDidUpdate } from '../../../hooks/lifecycle';
-import { setSearch } from '../../../store/actions';
 import PropTypes from 'prop-types';
 import Input from '../../Input';
 import Button from '../../Button';
 
 import './Search.css';
 
-const Search = ({ setSearch, className, search }) => {
-    const [value, setValue] = useState('');
+const Search = ({ className, search }) => {
+    const [value, setValue] = useState(search);
+    const history = useHistory();
 
     useComponentDidUpdate(() => {
         setValue(search);
@@ -21,13 +22,13 @@ const Search = ({ setSearch, className, search }) => {
 
     const onKeyUp = useCallback(({ key }) => {
         if (key === 'Enter') {
-            setSearch(value);
+            history.push(value ? '/search/' + value : '/');
         }
-    }, [setSearch, value]);
+    }, [history, value]);
 
     const onClick = useCallback(() => {
-        setSearch(value);
-    }, [setSearch, value]);
+        history.push(value ? '/search/' + value : '/');
+    }, [history, value]);
 
     return (
         <div className={className}>
@@ -44,9 +45,6 @@ const Search = ({ setSearch, className, search }) => {
 const mapStateToProps = state => ({
     search: state.search
 });
-const mapDispatchToProps = dispatch => ({
-    setSearch: (value) => dispatch(setSearch(value))
-});
 
 Search.propTypes = {
     setSearch: PropTypes.func,
@@ -56,4 +54,4 @@ Search.propTypes = {
 Search.defaultProps = {
     className: ''
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Search);
+export default connect(mapStateToProps)(Search);

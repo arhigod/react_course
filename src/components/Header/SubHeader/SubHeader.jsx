@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addMovie, setCurrentMovie } from '../../../store/actions';
@@ -13,8 +14,9 @@ import './SubHeader.css';
 const plusIcon = <Plus size='14' />;
 const searchIcon = <Search size='30' />;
 
-const SubHeader = ({ addMovie, setCurrentMovie, showSearchIcon }) => {
+const SubHeader = ({ addMovie, setCurrentMovie, showSearchIcon, search }) => {
     const [isModalOpened, setIsModalOpened] = useState(false);
+    const history = useHistory();
 
     const onAddMovieClick = useCallback(() => {
         setIsModalOpened(true);
@@ -34,7 +36,8 @@ const SubHeader = ({ addMovie, setCurrentMovie, showSearchIcon }) => {
 
     const onSearchIconClick = useCallback(() => {
         setCurrentMovie(null);
-    }, [setCurrentMovie]);
+        history.push(search ? '/search/' + search : '/');
+    }, [history, search, setCurrentMovie]);
 
     return (
         <div className='subHeader'>
@@ -49,6 +52,10 @@ const SubHeader = ({ addMovie, setCurrentMovie, showSearchIcon }) => {
     );
 };
 
+const mapStateToProps = state => ({
+    search: state.search
+});
+
 const mapDispatchToProps = dispatch => ({
     addMovie: (movie) => dispatch(addMovie(movie)),
     setCurrentMovie: (movie) => dispatch(setCurrentMovie(movie))
@@ -57,9 +64,10 @@ const mapDispatchToProps = dispatch => ({
 SubHeader.propTypes = {
     showSearchIcon: PropTypes.bool,
     addMovie: PropTypes.func,
-    setCurrentMovie: PropTypes.func
+    setCurrentMovie: PropTypes.func,
+    search: PropTypes.string
 };
 SubHeader.defaultProps = {
     showSearchIcon: false
 };
-export default connect(null, mapDispatchToProps)(SubHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(SubHeader);

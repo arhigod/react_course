@@ -1,19 +1,21 @@
 import dataHelper from '../util/dataHelper';
 
-export const setCurrentMovie = (movie) => (dispatch) => {
-    dispatch({
-        type: 'SET_CURRENT_MOVIE',
-        payload: movie
-    });
-    dispatch(scrollTop());
+export const setCurrentMovie = (movie) => ({
+    type: 'SET_CURRENT_MOVIE',
+    payload: movie
+});
+
+export const setCurrentMovieById = (id) => async (dispatch) => {
+    const data = await dataHelper.getMovie(id);
+    dispatch(setCurrentMovie(data));
 };
 
-export const setSearch = (search) => (dispatch) => {
+export const setSearch = (search, withoutScroll) => (dispatch) => {
     dispatch({
         type: 'SET_SEARCH',
         payload: search
     });
-    dispatch(getMovies(true));
+    dispatch(getMovies(true, withoutScroll));
 };
 
 export const setFilter = (filter) => (dispatch) => {
@@ -32,7 +34,7 @@ export const setSorter = (sorter) => (dispatch) => {
     dispatch(getMovies(true));
 };
 
-export const getMovies = (newSearch) => async (dispatch, getState) => {
+export const getMovies = (newSearch, withoutScroll) => async (dispatch, getState) => {
     dispatch(setIsLoading(true));
 
     const state = getState();
@@ -52,7 +54,9 @@ export const getMovies = (newSearch) => async (dispatch, getState) => {
         }
     });
 
-    dispatch(scrollMovies());
+    if (!withoutScroll) {
+        dispatch(scrollMovies());
+    }
     dispatch(setIsLoading(false));
 };
 
