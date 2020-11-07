@@ -1,20 +1,4 @@
-const initialState = {
-    movies: [],
-    totalAmount: 0,
-    currentMovie: null,
-    search: '',
-    filter: 'All',
-    sorter: {
-        id: 'release_date',
-        name: 'Release date'
-    },
-    currentPage: 1,
-    scrollTop: 0,
-    scrollMovies: 0,
-    isLoading: false
-};
-
-const reducers = (state = initialState, { type, payload }) => {
+const reducers = (state, { type, payload }) => {
     switch (type) {
         case 'SET_MOVIES':
             return { ...state, ...payload };

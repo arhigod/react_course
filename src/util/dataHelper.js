@@ -1,7 +1,8 @@
+const fetch = (typeof window !== 'undefined' && window.fetch) || require('node-fetch');
 import moviesMock from '../../mockdata/movies.json';
 
 export default {
-    getMovies: async function ({ sorter, filter, search, offset }) {
+    getMovies: async function ({ sorter = '', filter = '', search = '', offset = '' }) {
         try {
             const params = {
                 limit: 12,
