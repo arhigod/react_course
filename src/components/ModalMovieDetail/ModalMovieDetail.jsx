@@ -21,7 +21,7 @@ const ModalMovieDetail = ({ movie, onCloseClick, onSubmitClick }) => {
                     errors[type] = 'Required field';
                 }
             });
-            if (values.runtime && values.runtime < 0 ) {
+            if (values.runtime && values.runtime < 0) {
                 errors.runtime = 'Must be larger than or equal to 0';
             }
             if (!values.genres.length) {
@@ -57,10 +57,14 @@ const ModalMovieDetail = ({ movie, onCloseClick, onSubmitClick }) => {
     return (
         <Modal title={movie.id ? 'Edit movie' : 'Add movie'} acceptText={movie.id ? 'Save' : 'Submit'}
             onCloseClick={onCloseClick} onAcceptClick={formik.handleSubmit} onRejectClick={formik.handleReset}>
-            <div className={`field notEditable ${movie.id ? '' : 'notDisplayed'}`}>
-                <label>Movie id</label>
-                <span>{formik.values.id}</span>
-            </div>
+            {
+                movie.id ?
+                    <div className={'field notEditable'}>
+                        <label>Movie id</label>
+                        <span>{formik.values.id}</span>
+                    </div> :
+                    null
+            }
             <div className='field'>
                 <label>Title</label>
                 <Input placeholder='Title here' value={formik.values.title} name='title' onChange={onInputChanged} error={formik.errors.title} />
@@ -87,7 +91,7 @@ const ModalMovieDetail = ({ movie, onCloseClick, onSubmitClick }) => {
             </div>
             <div className='field'>
                 <label>Runtime</label>
-                <Input placeholder='Runtime' type='number' value={formik.values.runtime} name='runtime' onChange={onInputChanged} error={formik.errors.runtime}/>
+                <Input placeholder='Runtime' type='number' value={formik.values.runtime} name='runtime' onChange={onInputChanged} error={formik.errors.runtime} />
             </div>
         </Modal>
     );
