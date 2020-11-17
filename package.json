@@ -7,6 +7,7 @@
     "start": "webpack-dev-server --env.MODE=dev --open --hot",
     "build:dev": "webpack --env.MODE=dev",
     "build:prod": "webpack --env.MODE=prod",
+    "build:gh": "webpack --env.MODE=gh",
     "test": "jest -config jest.config.js ./src"
   },
   "repository": {
